@@ -47,6 +47,8 @@
         padding-bottom: 10px;
         text-transform: uppercase;
         letter-spacing: 2px;
+        /* Spazio per non finire sotto la navbar quando si clicca l'indice */
+        scroll-margin-top: 90px;
       }
       h2 {
         margin-top: 50px;
@@ -91,6 +93,42 @@
         color: #aaa;
       }
 
+      /* Stile Indice */
+      .toc-box {
+        margin-bottom: 40px;
+      }
+      .toc-title {
+        color: #d4af37;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        display: block;
+        border-bottom: 1px solid #333;
+        padding-bottom: 5px;
+      }
+      .toc-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+      }
+      .toc-list li {
+        background: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+      }
+      .toc-link {
+        color: #e0e0e0;
+        text-decoration: none;
+        font-size: 0.9em;
+        transition: color 0.3s;
+      }
+      .toc-link:hover {
+        color: #f1d592;
+      }
+
       .back-btn {
         display: inline-block;
         color: #d4af37;
@@ -125,6 +163,21 @@
     <div class="container">
       <a href="index.html" class="back-btn">← Torna all'Archivio</a>
 
+      <div class="gold-box toc-box">
+        <span class="toc-title">Indice della Guida</span>
+        <ul class="toc-list">
+          <li><a href="#basi" class="toc-link">◈ Le Basi</a></li>
+          <li><a href="#timers" class="toc-link">◈ Timers</a></li>
+          <li><a href="#roles" class="toc-link">◈ Roles</a></li>
+          <li><a href="#commands" class="toc-link">◈ Commands List</a></li>
+          <li>
+            <a href="#mystic" class="toc-link">◈ Mystic Skill Essenziali</a>
+          </li>
+          <li><a href="#martial" class="toc-link">◈ Martial Teachings</a></li>
+          <li><a href="#missing" class="toc-link">◈ Missing Information</a></li>
+        </ul>
+      </div>
+
       <div class="gold-box intro-box">
         <p>
           Con l'inizio della GvG questo fine settimana, ho pensato che sarebbe
@@ -145,7 +198,7 @@
       </div>
 
       <div class="section">
-        <h2>Le Basi</h2>
+        <h2 id="basi">Le Basi</h2>
         <p>
           Queste sono solo le cose più basilari di cui tutti dovrebbero essere a
           conoscenza prima di iniziare.
@@ -201,7 +254,7 @@
       </div>
 
       <div class="section">
-        <h2>Timers</h2>
+        <h2 id="timers">Timers</h2>
         <p>Certe meccaniche avverranno solo a minutaggi prestabiliti.</p>
         <ul>
           <li>
@@ -230,7 +283,7 @@
       </div>
 
       <div class="section">
-        <h2>Roles</h2>
+        <h2 id="roles">Roles</h2>
         <p>
           Ci sono 2 ruoli che il Guild Leader può impostare prima che la GvG
           inizi.
@@ -249,7 +302,7 @@
       </div>
 
       <div class="section">
-        <h2>Commands List</h2>
+        <h2 id="commands">Commands List</h2>
         <p>
           Questi sono i Comandi che sono stato tradotti su reddit dai video
           dalla CN. Potrebbero avere nomi diversi o valori leggermente diversi
@@ -297,7 +350,7 @@
       </div>
 
       <div class="section">
-        <h2>Mystic Skill Essenziali</h2>
+        <h2 id="mystic">Mystic Skill Essenziali</h2>
         <div class="gold-box">
           <ul>
             <li>
@@ -339,7 +392,7 @@
       </div>
 
       <div class="section">
-        <h2>Martial Teachings</h2>
+        <h2 id="martial">Martial Teachings</h2>
         <p>
           Ci sono anche buff e Skill specifici per la GvG che puoi acquistare
           andando in Guild > Technique > Martial Teaching. Questi saranno
@@ -394,7 +447,7 @@
       </div>
 
       <div class="section">
-        <h2>Missing Information</h2>
+        <h2 id="missing">Missing Information</h2>
         <div class="gold-box">
           <p>
             Questa è solo roba che so che esiste ma per la quale non ho le
