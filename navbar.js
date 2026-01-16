@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <a href="index.html" class="nav-item">Home Archivio</a>
                 <a href="partecipanti-import-excel.html" class="nav-item">Import Excel GvG</a>
                 <a href="partecipanti-gvg.html" class="nav-item">Team GvG</a>
-                <a href="#" class="nav-item">Membri</a>
+                <a href="partecipanti-gvg-live.html" class="nav-item">Live GvG</a>
             </div>
         </div>
     </nav>
