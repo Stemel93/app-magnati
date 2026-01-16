@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Guida GvG | Black & Gold Edition</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        color: #e0e0e0;
+        max-width: 1000px;
+        margin: auto;
+        padding: 20px;
+        background-color: #050505;
+      }
+      .container {
+        background-color: #0f0f0f;
+        padding: 50px;
+        border-radius: 4px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+        border: 1px solid #d4af37;
+        position: relative;
+      }
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+          to right,
+          #8a6d3b,
+          #d4af37,
+          #f1d592,
+          #d4af37,
+          #8a6d3b
+        );
+      }
+
+      h1,
+      h2 {
+        color: #f1d592;
+        border-bottom: 1px solid #333;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      h2 {
+        margin-top: 50px;
+        color: #d4af37;
+        border-bottom-color: #d4af37;
+      }
+      h3 {
+        color: #f1d592;
+        margin-top: 30px;
+      }
+
+      strong {
+        color: #f1d592;
+      }
+      p {
+        margin-bottom: 15px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      li {
+        margin-bottom: 15px;
+        padding: 20px;
+        background: #161616;
+        border-left: 3px solid #d4af37;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .intro-box {
+        font-style: italic;
+        color: #aaa;
+        border: 1px double #d4af37;
+        padding: 30px;
+        margin-bottom: 40px;
+        background: #111;
+        line-height: 1.8;
+      }
+
+      .back-btn {
+        display: inline-block;
+        color: #d4af37;
+        text-decoration: none;
+        border: 1px solid #d4af37;
+        padding: 8px 20px;
+        margin-bottom: 30px;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+      }
+      .back-btn:hover {
+        background: #d4af37;
+        color: #000;
+      }
+
+      hr {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          #d4af37,
+          transparent
+        );
+        margin: 50px 0;
+      }
+
+      .missing-info-box {
+        border: 1px solid #d4af37;
+        background-color: #1a160a;
+        padding: 25px;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="index.html" class="back-btn">← Torna all'Archivio</a>
+
+      <div class="intro-box">
+        <p>
+          Con l'inizio della GvG questo fine settimana, ho pensato che sarebbe
+          stato utile scrivere come funziona. Detto questo, mentre ho cercato di
+          raccogliere quante più informazioni possibili, non sono stato in grado
+          di collezionare certi pezzi di informazione poiché ci sono molti video
+          e la maggior parte non proviene da persone con posizioni di
+          Comandante. Dato che non ho mai giocato alla versione CN del gioco, né
+          conosco personalmente nessuno che lo abbia fatto, non sono in grado di
+          correggere le informazioni finché non uscirà questo fine settimana.
+        </p>
+        <p>
+          Se qualcuno ha giocato alla versione CN, nota qualcosa di errato, o è
+          in grado di fornire informazioni che ho perso, me lo faccia sapere nei
+          commenti e provvederò a sistemarlo/aggiungerlo alla guida. Spero che
+          la guida piaccia a tutti!
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>The Basics</h2>
+        <p>
+          Queste sono solo le cose più basilari di cui tutti dovrebbero essere a
+          conoscenza prima di iniziare.
+        </p>
+        <ul>
+          <li>
+            <strong>NPC Camps -</strong> Ci sono 4 Simboli sulla mappa che
+            rappresentano le posizioni dei Campi NPC. Respawnano ogni 5 minuti.
+          </li>
+          <li>
+            <strong>Fun Coins -</strong> Uccidere i Campi NPC garantisce "Fun
+            Coins" (credo che questa sia la traduzione) che possono essere usate
+            per acquistare "Commands" che hanno una varietà di effetti
+            (elencherò ciò che ho trovato di seguito). Nota che questi possono
+            essere attivati solo da Comandanti designati (per quanto ne so) e
+            hanno sia un timer del buff che un timer di cooldown.
+          </li>
+          <li>
+            <strong>Human Walls -</strong> Ogni lato ha 3 Torri chiamate "Human
+            Walls", ovvero 1 per corsia. Un giocatore può essere montato sulla
+            Torre per usare le Abilità di Difesa della Torre per respingere i
+            nemici. Le Torri dovrebbero essere uccise prima di attaccare il
+            Goose, ma solo 1 è tecnicamente necessaria.
+          </li>
+          <li>
+            <strong>The Goose -</strong> C'è un Goose su ogni lato della mappa
+            nella Base di ogni Team. Dovresti distruggere tutti e 3 gli "Human
+            Walls" del Team avversario prima di attaccare il Goose, ma solo 1 è
+            tecnicamente necessario.
+          </li>
+          <li>
+            <strong>Fortune Tree -</strong> Uccidere il Goose farà spawnare il
+            Fortune Tree che è un trasporto a movimento molto lento che devi
+            scortare dalla base nemica alla tua base. Farlo è una vittoria
+            automatica. Il Fortune Tree può muoversi solo lungo le corsie dove
+            hai ucciso la Torre nemica. La Mid Lane è il percorso più breve. Un
+            giocatore deve interagire con il Fortune Tree per scortarlo mentre
+            gli altri difendono la scorta.
+          </li>
+          <li>
+            <strong>Win Conditions -</strong> Ci sono 3 modi possibili per
+            vincere: <br />1. Scorta il Fortune Tree nemico fino alla tua base.
+            Vittoria Automatica. <br />2. Se il timer di 30 minuti scade, allora
+            vince il Team con il punteggio più alto. I punti sono determinati
+            dalle Uccisioni dei Giocatori, HP/Uccisioni delle Torri, HP/Morte
+            del Goose, e distanza percorsa dal Fortune Tree, con la distanza del
+            Fortune Tree che è la più decisiva poiché significa che hai anche
+            ucciso il Goose. <br />3. Far arrendere la Gilda nemica.
+            Improbabile, ma possibile.
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Timers</h2>
+        <p>Certe meccaniche avverranno solo a orari prestabiliti.</p>
+        <ul>
+          <li>
+            <strong>NPC Camps -</strong> Gli NPC respawnano in ciascuno dei 4
+            Campi sulla mappa ogni 5 minuti. Uccidili per le "Fun Coins" che i
+            Comandanti possono usare per comprare Comandi.
+          </li>
+          <li>
+            <strong>NPC Bosses -</strong> Ai segni dei 25 minuti e 15 minuti
+            (25:00 e 15:00) un Boss NPC spawnerà nel mezzo della mappa. Uccidilo
+            per un grande buff.
+          </li>
+          <li>
+            <strong>1v1 Duel -</strong> Al segno dei 20 minuti (20:00), avverrà
+            un 1v1 tra gli "Half-Step Performers" designati di ogni Team. Sembra
+            essercene solo 1, selezionato casualmente tra i 3 possibili da
+            designare. Un video che ho trovato suggeriva che il team vincitore
+            dell'1v1 può scegliere il Buff/Debuff. Un altro suggeriva che il
+            team vincitore dell'1v1 otterrà un Transport Buff per il "Fortune
+            Tree" così che possa essere mosso più velocemente. Non sono stato in
+            grado di confermare in un modo o nell'altro.
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Roles</h2>
+        <p>
+          Ci sono 2 ruoli che il Guild Leader può impostare prima che la GvG
+          inizi.
+        </p>
+        <ul>
+          <li>
+            <strong>Commander -</strong> Limitato a 2 giocatori. Sono gli unici
+            2 che possono acquistare Comandi durante la battaglia.
+          </li>
+          <li>
+            <strong>Half-Step Performer -</strong> Limitato a 3 giocatori. Al
+            segno dei 20 minuti, 1 viene selezionato casualmente per partecipare
+            a un duello 1v1 contro il team nemico.
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Commands List</h2>
+        <p>
+          Questi sono i Comandi che sono stato in grado di tradurre dai video
+          dalla CN. Potrebbero avere nomi diversi o valori leggermente diversi
+          in Global, ma questa lista dovrebbe essere praticamente accurata.
+        </p>
+        <ul>
+          <li>
+            <strong>Boost Morale -</strong> Sconosciuto ma la mia ipotesi è un
+            buff al danno e/o alla riduzione del danno.
+          </li>
+          <li>
+            <strong>Remove the Fuel from the Cauldron -</strong> Riduce le cure
+            ricevute da tutte le unità nemiche del 60% per 15 secondi.
+          </li>
+          <li>
+            <strong>Fight Again -</strong> Riduce il cooldown rimanente di tutte
+            le Ally Martial Arts Skills del 50% E aumenta il danno/cura del 10%
+            per i prossimi 30 secondi. "Desperate Measures Extra Effect": Se il
+            tuo team è indietro di 2 "Human Walls" rispetto al nemico, l'effetto
+            è potenziato in modo che tutte le Martial Arts degli Alleati si
+            ricarichino istantaneamente.
+          </li>
+          <li>
+            <strong>Protect the City -</strong> "Human Walls" e Goose sono
+            immuni al danno per 20 secondi.
+          </li>
+          <li>
+            <strong>Plucking Hair -</strong> Aumenta tutto il danno Alleato
+            contro i Geese del 100% per 10 secondi.
+          </li>
+          <li>
+            <strong>Express -</strong> Aumenta la velocità di movimento del
+            "Fortune Tree" del 100% per 10 secondi.
+          </li>
+          <li>
+            <strong>Go Forward Indomitably -</strong> Il "Fortune Tree" non può
+            essere ostruito/bloccato per 5 secondi.
+          </li>
+          <li>
+            <strong>Capture the Thief and Capture the King -</strong> Nessuna
+            idea.
+          </li>
+          <li><strong>What Are You Looking At? -</strong> Non ne ho idea.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Martial Teachings</h2>
+        <p>
+          Ci sono anche buff e Skill specifici per la GvG che puoi acquistare
+          andando in Guild > Technique > Martial Teaching. Questi saranno
+          fondamentali per la GvG quindi assicurati di comprarli.
+        </p>
+        <ul>
+          <li>
+            <strong>DMG Bonus -</strong> Aumenta il Danno inflitto. Al livello 5
+            aumenta il Danno inflitto per l'intero team. Limitato a 5 per ora.
+          </li>
+          <li>
+            <strong>DMG Reduction -</strong> Riduce il Danno subito. Al livello
+            5 riduce il Danno subito per l'intero team. Limitato a 5 per ora.
+          </li>
+          <li>
+            <strong>HP Bonus -</strong> Aumenta gli HP Massimi. Al livello 5,
+            aumenta gli HP Massimi per l'intero team. Limitato a 5 per ora.
+          </li>
+          <li>
+            <strong
+              >Bellstrike/Stonesplit/Silkbind/Bamboocut Attack Bonus -</strong
+            >
+            Aumenta lo specifico stile di attacco. Limitato a 5.
+          </li>
+          <li>
+            <strong>Assault -</strong> Più danno e Riduzione Danno quando sei
+            alle Torri nemiche, al Goose e al Fortune Tree. Limitato a 1.
+          </li>
+          <li>
+            <strong>Fortification -</strong> Più Riduzione Danno e HP quando sei
+            alle Torri Alleate, al Goose e al Fortune Tree. Limitato a 1.
+          </li>
+          <li>
+            <strong>Swiftness -</strong> Movimento più veloce e più HP mentre
+            muovi il Fortune Tree. Limitato a 1.
+          </li>
+          <li>
+            <strong>Abundance -</strong> Più "Fun Coins" dagli NPC. Limitato a
+            1.
+          </li>
+          <li>
+            <strong>Impregnable Fortress -</strong> Più Riduzione Danno e Danno
+            Skill mentre agisci come Human Wall (Torre) Alleato.
+          </li>
+          <li>
+            <strong>EX Skills -</strong> Ce ne sono 2 per ogni Path (Weapon
+            Set), ma alcune sono per la stessa arma. Significa che puoi averne 2
+            per Nameless Sword o 1 per Strategic Sword e 1 per Heavenquaker
+            Spear. Hanno una varietà di effetti che sono incredibilmente forti
+            ma hanno grandi cooldown, credo che tutti siano cooldown di 120s.
+            Ognuna è limitata a 1.
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Missing Information</h2>
+        <div class="missing-info-box">
+          <p>
+            Questa è solo roba che so che esiste ma per la quale non ho le
+            informazioni.
+          </p>
+          <ul>
+            <li>
+              <strong>Boost Moral Command -</strong> Se sai specificamente cosa
+              fa, fammelo sapere per favore.
+            </li>
+            <li>
+              <strong>Capture the Thief and Capture the King -</strong> Se sai
+              specificamente cosa fa, fammelo sapere per favore.
+            </li>
+            <li>
+              <strong>What Are You Looking At? -</strong> Se sai specificamente
+              cosa fa, fammelo sapere per favore.
+            </li>
+            <li>
+              <strong>Ballista -</strong> So che puoi comprare dardi per essa e
+              che si trova sulla base, ma non l'ho mai vista usata. Penso possa
+              essere usata per difendere gli Human Walls ma non sono sicuro. Il
+              Guild Leader/Officers devono comprare munizioni per esse prima che
+              la GvG inizi.
+            </li>
+            <li>
+              <strong>Horskie -</strong> So che puoi evocarlo alla tua base
+              all'inizio della GvG e deve essere acquistato dal Guild
+              Leader/Officers prima della GvG, ma non so affatto cosa faccia.
+              Forse una cavalcatura?
+            </li>
+            <li>
+              <strong>Boom Chicken -</strong> So che puoi evocarlo alla tua base
+              all'inizio della GvG e deve essere acquistato dal Guild
+              Leader/Officers prima della GvG, ma non so affatto cosa faccia.
+              Forse una granata pollo esplosivo? Stile Zelda?
+            </li>
+          </ul>
+        </div>
+        <hr />
+        <p>
+          E questo è tutto quello che mi viene in mente di includere per ora.
+          Spero che tutti lo trovino utile per le loro preparazioni alla GvG! Se
+          trovate problemi o pensate a qualcosa che dovrebbe essere incluso,
+          fatemelo sapere nei commenti!
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
