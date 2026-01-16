@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Partecipanti GvG | ITA-MAGNATI</title>
+    <script src="navbar.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: #050505;
+        color: #e0e0e0;
+      }
+      .main-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
+      }
+      .header-section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #d4af37;
+        padding-bottom: 15px;
+      }
+      .group-header {
+        width: 45%;
+        text-align: center;
+      }
+      .side-title {
+        color: #f1d592;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 1.8em;
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .commander-name {
+        color: #d4af37;
+        font-style: italic;
+        margin-top: 5px;
+        font-size: 1.1em;
+        letter-spacing: 1px;
+      }
+
+      /* Sezione Speciale Centrale Half-Step */
+      .special-roles-section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+      .half-step-box {
+        width: 100%;
+        max-width: 500px;
+        background-color: #0f0f0f;
+        border: 2px solid #d4af37;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+      }
+      .half-step-header {
+        background: linear-gradient(to right, #b8860b, #f1d592, #b8860b);
+        color: #000;
+        padding: 8px;
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.9em;
+      }
+
+      /* Griglia Gruppi */
+      .gvg-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+      .column {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .team-box {
+        background-color: #0f0f0f;
+        border: 1px solid #d4af37;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      }
+      .team-header {
+        background: linear-gradient(to right, #8a6d3b, #d4af37);
+        color: #000;
+        padding: 10px 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .player-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .player-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid #222;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: background 0.3s;
+      }
+      .player-item:last-child {
+        border-bottom: none;
+      }
+      .player-item:hover {
+        background-color: #1a160a;
+      }
+      .player-info {
+        display: flex;
+        align-items: center;
+      }
+      .player-num {
+        color: #d4af37;
+        margin-right: 15px;
+        font-size: 0.8em;
+        width: 20px;
+        font-weight: bold;
+      }
+      .player-name {
+        font-weight: 500;
+        letter-spacing: 0.5px;
+      }
+      .player-role {
+        color: #8a6d3b;
+        font-size: 0.85em;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .role-value {
+        color: #f1d592;
+        margin-left: 5px;
+      }
+
+      @media (max-width: 900px) {
+        .gvg-grid {
+          grid-template-columns: 1fr;
+        }
+        .header-section {
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+        }
+        .group-header {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="header-section">
+        <div class="group-header">
+          <h1 class="side-title">GRUPPO ATTACCO</h1>
+          <div class="commander-name">Comandante: [Nome]</div>
+        </div>
+        <div class="group-header">
+          <h1 class="side-title">GRUPPO DIFESA</h1>
+          <div class="commander-name">Comandante: [Nome]</div>
+        </div>
+      </div>
+
+      <div class="special-roles-section">
+        <div class="half-step-box">
+          <div class="half-step-header">Half-Step Performer (Duellanti)</div>
+          <ul class="player-list">
+            <li class="player-item">
+              <div class="player-info">
+                <span class="player-num">★</span
+                ><span class="player-name">Player 1</span>
+              </div>
+              <div class="player-role">
+                Role: <span class="role-value">-</span>
+              </div>
+            </li>
+            <li class="player-item">
+              <div class="player-info">
+                <span class="player-num">★</span
+                ><span class="player-name">Player 2</span>
+              </div>
+              <div class="player-role">
+                Role: <span class="role-value">-</span>
+              </div>
+            </li>
+            <li class="player-item">
+              <div class="player-info">
+                <span class="player-num">★</span
+                ><span class="player-name">Player 3</span>
+              </div>
+              <div class="player-role">
+                Role: <span class="role-value">-</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gvg-grid">
+        <div class="column">
+          <div class="team-box">
+            <div class="team-header">
+              <span>Team 1</span> <small>ATT</small>
+            </div>
+            <ul class="player-list">
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">01</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">02</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">03</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">04</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">05</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="team-box">
+            <div class="team-header">
+              <span>Team 2</span> <small>ATT</small>
+            </div>
+            <ul class="player-list">
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">06</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">07</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">08</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">09</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">10</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="team-box">
+            <div class="team-header">
+              <span>Team 3</span> <small>ATT</small>
+            </div>
+            <ul class="player-list">
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">11</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">12</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">13</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">14</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">15</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="team-box">
+            <div class="team-header">
+              <span>Team 4</span> <small>DEF</small>
+            </div>
+            <ul class="player-list">
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">16</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">17</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">18</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">19</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">20</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="team-box">
+            <div class="team-header">
+              <span>Team 5</span> <small>DEF</small>
+            </div>
+            <ul class="player-list">
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">21</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">22</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">23</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">24</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">25</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="team-box">
+            <div class="team-header">
+              <span>Team 6</span> <small>DEF</small>
+            </div>
+            <ul class="player-list">
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">26</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">27</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">28</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">29</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+              <li class="player-item">
+                <div class="player-info">
+                  <span class="player-num">30</span
+                  ><span class="player-name">Player Name</span>
+                </div>
+                <div class="player-role">
+                  Role: <span class="role-value">-</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
