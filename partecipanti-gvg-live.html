@@ -167,12 +167,15 @@
       // 2. Funzione per scaricare i dati
       async function fetchGvGData() {
         try {
-          const response = await fetch(googleSheetCsvUrl);
+          // Aggiungiamo un parametro temporale unico alla fine dell'URL per evitare la cache
+          const cacheBuster = "&t=" + new Date().getTime();
+          const finalUrl = googleSheetCsvUrl + cacheBuster;
+
+          const response = await fetch(finalUrl);
           if (!response.ok) throw new Error("Errore nel download del file");
 
           const csvText = await response.text();
 
-          // Conversione da CSV a JSON tramite SheetJS
           const workbook = XLSX.read(csvText, { type: "string" });
           const firstSheetName = workbook.SheetNames[0];
           const jsonData = XLSX.utils.sheet_to_json(
@@ -181,13 +184,12 @@
 
           renderGvG(jsonData);
 
-          // Nascondi caricamento e mostra contenuto
           document.getElementById("loadingMsg").style.display = "none";
           document.getElementById("gvgContent").style.display = "block";
         } catch (error) {
           console.error("Errore:", error);
           document.getElementById("loadingMsg").innerHTML =
-            "<span style='color:red;'>Errore nel caricamento dati. Controlla il link di Google Sheets.</span>";
+            "<span style='color:red;'>Errore nel caricamento dati.</span>";
         }
       }
 
