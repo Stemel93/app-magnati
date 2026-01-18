@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GvG Live Dashboard | ITA-MAGNATI</title>
+    <script src="navbar.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", sans-serif;
+        background-color: #050505;
+        color: #e0e0e0;
+      }
+      .main-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
+      }
+
+      /* Messaggio Caricamento */
+      #loadingMsg {
+        text-align: center;
+        color: #d4af37;
+        font-size: 1.2em;
+        margin-top: 50px;
+      }
+
+      /* Header Sezioni */
+      .header-section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #d4af37;
+        padding-bottom: 15px;
+      }
+      .group-header {
+        width: 45%;
+        text-align: center;
+      }
+      .side-title {
+        color: #f1d592;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 1.8em;
+        margin: 0;
+      }
+      .commander-name {
+        color: #d4af37;
+        font-style: italic;
+        margin-top: 5px;
+        font-size: 1.1em;
+      }
+
+      /* Griglia e Box Team */
+      .gvg-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+      .team-box {
+        background-color: #0f0f0f;
+        border: 1px solid #d4af37;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      }
+      .team-header {
+        background: linear-gradient(to right, #8a6d3b, #d4af37);
+        color: #000;
+        padding: 10px 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .player-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .player-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid #222;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .player-num {
+        color: #d4af37;
+        font-weight: bold;
+        margin-right: 15px;
+        min-width: 25px;
+        display: inline-block;
+      }
+      .role-label {
+        font-size: 0.8em;
+        color: #8a6d3b;
+        text-transform: uppercase;
+      }
+      .role-value {
+        color: #f1d592;
+        margin-left: 5px;
+      }
+
+      /* Speciale Duellanti */
+      .special-roles-section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+      .half-step-box {
+        width: 100%;
+        max-width: 500px;
+        border: 2px solid #d4af37;
+        background: #1a160a;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      @media (max-width: 900px) {
+        .gvg-grid {
+          grid-template-columns: 1fr;
+        }
+        .header-section {
+          flex-direction: column;
+          gap: 20px;
+        }
+        .group-header {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div id="loadingMsg">Caricamento formazioni GvG in corso...</div>
+
+      <div id="gvgContent" style="display: none">
+        <div class="header-section">
+          <div class="group-header">
+            <h1 class="side-title">GRUPPO ATTACCO</h1>
+            <div id="cmdAtt" class="commander-name">Comandante: -</div>
+          </div>
+          <div class="group-header">
+            <h1 class="side-title">GRUPPO DIFESA</h1>
+            <div id="cmdDef" class="commander-name">Comandante: -</div>
+          </div>
+        </div>
+
+        <div id="halfStepContainer" class="special-roles-section"></div>
+
+        <div class="gvg-grid">
+          <div id="attackColumn" class="column"></div>
+          <div id="defenseColumn" class="column"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 1. INCOLLA QUI IL TUO LINK CSV DI GOOGLE SHEETS
+      const googleSheetCsvUrl =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vTVc1NWJKYKyESt9c7mW0D5T9FTD5US4W9SVWCNV2pe6P4Sso5iUMbpWpwCGrz5n_i0EkbxGhYZ0Yn7/pub?gid=513687088&single=true&output=csv";
+
+      // 2. Funzione per scaricare i dati
+      async function fetchGvGData() {
+        try {
+          const cacheBuster = "&t=" + new Date().getTime();
+          const finalUrl = googleSheetCsvUrl + cacheBuster;
+
+          const response = await fetch(finalUrl);
+          if (!response.ok) throw new Error("Errore nel download del file");
+
+          const csvText = await response.text();
+
+          const workbook = XLSX.read(csvText, { type: "string" });
+          const firstSheetName = workbook.SheetNames[0];
+          const jsonData = XLSX.utils.sheet_to_json(
+            workbook.Sheets[firstSheetName]
+          );
+
+          renderGvG(jsonData);
+
+          document.getElementById("loadingMsg").style.display = "none";
+          document.getElementById("gvgContent").style.display = "block";
+        } catch (error) {
+          console.error("Errore:", error);
+          document.getElementById("loadingMsg").innerHTML =
+            "<span style='color:red;'>Errore nel caricamento dati.</span>";
+        }
+      }
+
+      // 3. Funzione per costruire l'interfaccia
+      function renderGvG(data) {
+        const attackCol = document.getElementById("attackColumn");
+        const defenseCol = document.getElementById("defenseColumn");
+        const halfStepContainer = document.getElementById("halfStepContainer");
+        const cmdAtt = document.getElementById("cmdAtt");
+        const cmdDef = document.getElementById("cmdDef");
+
+        attackCol.innerHTML = "";
+        defenseCol.innerHTML = "";
+        halfStepContainer.innerHTML = "";
+
+        const teams = {};
+
+        data.forEach((row) => {
+          if (row.Team === "Comandante ATT") {
+            cmdAtt.innerText = "Comandante: " + (row.Nome || "-");
+            return;
+          }
+          if (row.Team === "Comandante DIF") {
+            cmdDef.innerText = "Comandante: " + (row.Nome || "-");
+            return;
+          }
+
+          if (!teams[row.Team]) teams[row.Team] = [];
+          teams[row.Team].push(row);
+        });
+
+        for (let teamName in teams) {
+          const isHalf = teamName.toLowerCase().includes("half");
+
+          const html = `
+                <div class="${isHalf ? "half-step-box" : "team-box"}">
+                    <div class="team-header">${
+                      isHalf ? "Half-Step Performer (Duellanti)" : teamName
+                    }</div>
+                    <ul class="player-list">
+                        ${teams[teamName]
+                          .map(
+                            (p) => `
+                            <li class="player-item">
+                                <div><span class="player-num">${
+                                  p.Posizione || ""
+                                }</span>${p.Nome || "Vuoto"}</div>
+                                <div class="role-label">Role: <span class="role-value">${
+                                  p.Ruolo || "-"
+                                }</span></div>
+                            </li>
+                        `
+                          )
+                          .join("")}
+                    </ul>
+                </div>`;
+
+          if (isHalf) {
+            halfStepContainer.innerHTML = html;
+          }
+          // MODIFICA: Team 4 aggiunto alla colonna Attacco
+          else if (
+            ["Team 1", "Team 2", "Team 3", "Team 4"].includes(teamName)
+          ) {
+            attackCol.innerHTML += html;
+          } else {
+            defenseCol.innerHTML += html;
+          }
+        }
+      }
+
+      window.onload = fetchGvGData;
+    </script>
+  </body>
+</html>
