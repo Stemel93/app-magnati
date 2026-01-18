@@ -167,7 +167,6 @@
       // 2. Funzione per scaricare i dati
       async function fetchGvGData() {
         try {
-          // Aggiungiamo un parametro temporale unico alla fine dell'URL per evitare la cache
           const cacheBuster = "&t=" + new Date().getTime();
           const finalUrl = googleSheetCsvUrl + cacheBuster;
 
@@ -201,7 +200,6 @@
         const cmdAtt = document.getElementById("cmdAtt");
         const cmdDef = document.getElementById("cmdDef");
 
-        // Svuota i contenitori prima del render
         attackCol.innerHTML = "";
         defenseCol.innerHTML = "";
         halfStepContainer.innerHTML = "";
@@ -209,7 +207,6 @@
         const teams = {};
 
         data.forEach((row) => {
-          // Gestione righe speciali Comandanti
           if (row.Team === "Comandante ATT") {
             cmdAtt.innerText = "Comandante: " + (row.Nome || "-");
             return;
@@ -219,7 +216,6 @@
             return;
           }
 
-          // Raggruppa i player per team
           if (!teams[row.Team]) teams[row.Team] = [];
           teams[row.Team].push(row);
         });
@@ -252,7 +248,11 @@
 
           if (isHalf) {
             halfStepContainer.innerHTML = html;
-          } else if (["Team 1", "Team 2", "Team 3"].includes(teamName)) {
+          }
+          // MODIFICA: Team 4 aggiunto alla colonna Attacco
+          else if (
+            ["Team 1", "Team 2", "Team 3", "Team 4"].includes(teamName)
+          ) {
             attackCol.innerHTML += html;
           } else {
             defenseCol.innerHTML += html;
@@ -260,7 +260,6 @@
         }
       }
 
-      // Avvio automatico al caricamento della pagina
       window.onload = fetchGvGData;
     </script>
   </body>
