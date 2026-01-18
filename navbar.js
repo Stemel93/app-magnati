@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             <div class="nav-links">
                 <a href="index.html" class="nav-item">Home Archivio</a>
-                <a href="partecipanti-import-excel.html" class="nav-item">Import Excel GvG</a>
+                <a style="display:none" href="partecipanti-import-excel.html" class="nav-item">Import Excel GvG</a>
                 <a href="partecipanti-gvg-live.html" class="nav-item">Team GvG Magnati 1</a>
                 <a href="partecipanti-gvg-live-magnati2.html" class="nav-item">Team GvG Magnati 2</a>
             </div>

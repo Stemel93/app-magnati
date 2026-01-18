@@ -28,6 +28,22 @@
         margin-top: 50px;
       }
 
+      /* Speciale Duellanti */
+      .special-roles-section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 50px;
+      }
+      .half-step-box {
+        width: 100%;
+        max-width: 600px;
+        border: 2px solid #d4af37;
+        background: #1a160a;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+      }
+
       /* Header Sezioni */
       .header-section {
         display: flex;
@@ -54,12 +70,19 @@
         font-size: 1.1em;
       }
 
-      /* Griglia e Box Team */
+      /* Griglia con Separatore Netto */
       .gvg-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 20px;
       }
+
+      .vertical-divider {
+        width: 2px;
+        background-color: #d4af37; /* Colore solido senza gradient */
+        margin: 0 10px;
+      }
+
       .team-box {
         background-color: #0f0f0f;
         border: 1px solid #d4af37;
@@ -105,24 +128,12 @@
         margin-left: 5px;
       }
 
-      /* Speciale Duellanti */
-      .special-roles-section {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 40px;
-      }
-      .half-step-box {
-        width: 100%;
-        max-width: 500px;
-        border: 2px solid #d4af37;
-        background: #1a160a;
-        border-radius: 4px;
-        overflow: hidden;
-      }
-
       @media (max-width: 900px) {
         .gvg-grid {
           grid-template-columns: 1fr;
+        }
+        .vertical-divider {
+          display: none;
         }
         .header-section {
           flex-direction: column;
@@ -139,6 +150,8 @@
       <div id="loadingMsg">Caricamento formazioni GvG in corso...</div>
 
       <div id="gvgContent" style="display: none">
+        <div id="halfStepContainer" class="special-roles-section"></div>
+
         <div class="header-section">
           <div class="group-header">
             <h1 class="side-title">GRUPPO ATTACCO</h1>
@@ -150,31 +163,29 @@
           </div>
         </div>
 
-        <div id="halfStepContainer" class="special-roles-section"></div>
-
         <div class="gvg-grid">
           <div id="attackColumn" class="column"></div>
+
+          <div class="vertical-divider"></div>
+
           <div id="defenseColumn" class="column"></div>
         </div>
       </div>
     </div>
 
     <script>
-      // 1. INCOLLA QUI IL TUO LINK CSV DI GOOGLE SHEETS
       const googleSheetCsvUrl =
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vTVc1NWJKYKyESt9c7mW0D5T9FTD5US4W9SVWCNV2pe6P4Sso5iUMbpWpwCGrz5n_i0EkbxGhYZ0Yn7/pub?gid=684218607&single=true&output=csv";
 
-      // 2. Funzione per scaricare i dati
       async function fetchGvGData() {
         try {
           const cacheBuster = "&t=" + new Date().getTime();
           const finalUrl = googleSheetCsvUrl + cacheBuster;
 
           const response = await fetch(finalUrl);
-          if (!response.ok) throw new Error("Errore nel download del file");
+          if (!response.ok) throw new Error("Errore nel download");
 
           const csvText = await response.text();
-
           const workbook = XLSX.read(csvText, { type: "string" });
           const firstSheetName = workbook.SheetNames[0];
           const jsonData = XLSX.utils.sheet_to_json(
@@ -192,7 +203,6 @@
         }
       }
 
-      // 3. Funzione per costruire l'interfaccia
       function renderGvG(data) {
         const attackCol = document.getElementById("attackColumn");
         const defenseCol = document.getElementById("defenseColumn");
@@ -215,14 +225,12 @@
             cmdDef.innerText = "Comandante: " + (row.Nome || "-");
             return;
           }
-
           if (!teams[row.Team]) teams[row.Team] = [];
           teams[row.Team].push(row);
         });
 
         for (let teamName in teams) {
           const isHalf = teamName.toLowerCase().includes("half");
-
           const html = `
                 <div class="${isHalf ? "half-step-box" : "team-box"}">
                     <div class="team-header">${
@@ -248,9 +256,7 @@
 
           if (isHalf) {
             halfStepContainer.innerHTML = html;
-          }
-          // MODIFICA: Team 4 aggiunto alla colonna Attacco
-          else if (
+          } else if (
             ["Team 1", "Team 2", "Team 3", "Team 4"].includes(teamName)
           ) {
             attackCol.innerHTML += html;
