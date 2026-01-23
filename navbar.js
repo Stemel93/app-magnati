@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
             color: #d4af37;
             text-decoration: none;
             text-transform: uppercase;
-            font-size: 0.85em;
+            font-size: 0.65em;
             letter-spacing: 1.5px;
             font-weight: bold;
             transition: all 0.3s ease;
@@ -83,10 +83,10 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="nav-links">
                 <a href="index.html" class="nav-item">Home Archivio</a>
                 <a style="display:none" href="partecipanti-import-excel.html" class="nav-item">Import Excel GvG</a>
-                <a href="partecipanti-gvg-live.html" class="nav-item">GvG Sabato Magnati 1</a>
-                <a href="partecipanti-gvg-live-domenica.html" class="nav-item">GvG Domenica Magnati 1</a>
-                <a href="partecipanti-gvg-live-magnati2.html" class="nav-item">GvG Sabato Magnati 2</a>
-                <a href="partecipanti-gvg-live-magnati2-domenica.html" class="nav-item">GvG Domenica Magnati 2</a>
+                <a href="partecipanti-gvg-live.html" class="nav-item">GvG Sabato Mag 1</a>
+                <a href="partecipanti-gvg-live-domenica.html" class="nav-item">GvG Domenica Mag 1</a>
+                <a href="partecipanti-gvg-live-magnati2.html" class="nav-item">GvG Sabato Mag 2</a>
+                <a href="partecipanti-gvg-live-magnati2-domenica.html" class="nav-item">GvG Domenica Mag 2</a>
             </div>
         </div>
     </nav>
