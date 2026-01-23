@@ -89,6 +89,17 @@
         margin-bottom: 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
       }
+
+      /* Stile specifico per la Bench */
+      .bench-box {
+        border-color: #888;
+        opacity: 0.85;
+      }
+      .bench-header {
+        background: linear-gradient(to right, #444, #666) !important;
+        color: #fff !important;
+      }
+
       .team-header {
         background: linear-gradient(to right, #8a6d3b, #d4af37);
         color: #000;
@@ -208,11 +219,21 @@
 
         for (let teamName in teams) {
           const isHalf = teamName.toLowerCase().includes("half");
+          const isBench = teamName.toLowerCase() === "bench";
+
           const html = `
-                <div class="${isHalf ? "half-step-box" : "team-box"}">
-                    <div class="team-header">${
-                      isHalf ? "Duellanti" : teamName
-                    }</div>
+                <div class="${isHalf ? "half-step-box" : "team-box"} ${
+            isBench ? "bench-box" : ""
+          }">
+                    <div class="team-header ${isBench ? "bench-header" : ""}">
+                        ${
+                          isHalf
+                            ? "Duellanti"
+                            : isBench
+                            ? "BENCH (RISERVE)"
+                            : teamName
+                        }
+                    </div>
                     <ul class="player-list">
                         ${teams[teamName]
                           .map(
@@ -231,10 +252,16 @@
                     </ul>
                 </div>`;
 
-          if (isHalf) halfStepContainer.innerHTML = html;
-          else if (["Team 1", "Team 2", "Team 3", "Team 4"].includes(teamName))
+          if (isHalf) {
+            halfStepContainer.innerHTML = html;
+          } else if (
+            ["Team 1", "Team 2", "Team 3", "Team 4"].includes(teamName)
+          ) {
             attackCol.innerHTML += html;
-          else defenseCol.innerHTML += html;
+          } else {
+            // Include Team 5, Team 6 e Bench nella colonna di destra
+            defenseCol.innerHTML += html;
+          }
         }
       }
       window.onload = fetchGvGData;
