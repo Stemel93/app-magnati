@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GvG Live Dashboard | ITA-MAGNATI</title>
+    <script src="navbar.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", sans-serif;
+        background-color: #050505;
+        color: #e0e0e0;
+      }
+      .main-container {
+        max-width: 1100px;
+        margin: 10px auto;
+        padding: 10px;
+      }
+
+      #loadingMsg {
+        text-align: center;
+        color: #d4af37;
+        margin-top: 20px;
+      }
+
+      /* Sezione Duellanti in alto */
+      .special-roles-section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+      .half-step-box {
+        width: 100%;
+        max-width: 500px;
+        border: 1px solid #d4af37;
+        background: #1a160a;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      /* Header Sezioni */
+      .header-section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #d4af37;
+        padding-bottom: 5px;
+      }
+      .group-header {
+        width: 45%;
+        text-align: center;
+      }
+      .side-title {
+        color: #f1d592;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 1.4em;
+        margin: 0;
+      }
+      .commander-name {
+        color: #d4af37;
+        font-style: italic;
+        font-size: 0.95em;
+        margin-top: 2px;
+      }
+
+      /* Griglia con Separatore Netto */
+      .gvg-grid {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 15px;
+      }
+
+      .vertical-divider {
+        width: 2px;
+        background-color: #d4af37;
+        margin: 0 5px;
+      }
+
+      /* Box Team Compatti */
+      .team-box {
+        background-color: #0f0f0f;
+        border: 1px solid #d4af37;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      }
+      .team-header {
+        background: linear-gradient(to right, #8a6d3b, #d4af37);
+        color: #000;
+        padding: 4px 10px;
+        font-weight: bold;
+        font-size: 0.85em;
+        text-transform: uppercase;
+      }
+
+      .player-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .player-item {
+        padding: 4px 10px;
+        border-bottom: 1px solid #222;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85em;
+      }
+      .player-num {
+        color: #d4af37;
+        font-weight: bold;
+        margin-right: 8px;
+        min-width: 18px;
+        display: inline-block;
+      }
+
+      /* Ruoli in Maiuscolo */
+      .role-value {
+        color: #f1d592;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 0.9em;
+      }
+
+      @media (max-width: 800px) {
+        .gvg-grid {
+          grid-template-columns: 1fr;
+        }
+        .vertical-divider {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div id="loadingMsg">Caricamento in corso...</div>
+      <div id="gvgContent" style="display: none">
+        <div id="halfStepContainer" class="special-roles-section"></div>
+
+        <div class="header-section">
+          <div class="group-header">
+            <h1 class="side-title">ATTACCO</h1>
+            <div id="cmdAtt" class="commander-name">Comandante: -</div>
+          </div>
+          <div class="group-header">
+            <h1 class="side-title">DIFESA</h1>
+            <div id="cmdDef" class="commander-name">Comandante: -</div>
+          </div>
+        </div>
+
+        <div class="gvg-grid">
+          <div id="attackColumn" class="column"></div>
+          <div class="vertical-divider"></div>
+          <div id="defenseColumn" class="column"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const googleSheetCsvUrl =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vTVc1NWJKYKyESt9c7mW0D5T9FTD5US4W9SVWCNV2pe6P4Sso5iUMbpWpwCGrz5n_i0EkbxGhYZ0Yn7/pub?gid=1214041140&single=true&output=csv";
+
+      async function fetchGvGData() {
+        try {
+          const response = await fetch(
+            googleSheetCsvUrl + "&t=" + new Date().getTime()
+          );
+          const csvText = await response.text();
+          const workbook = XLSX.read(csvText, { type: "string" });
+          const jsonData = XLSX.utils.sheet_to_json(
+            workbook.Sheets[workbook.SheetNames[0]]
+          );
+          renderGvG(jsonData);
+          document.getElementById("loadingMsg").style.display = "none";
+          document.getElementById("gvgContent").style.display = "block";
+        } catch (e) {
+          document.getElementById("loadingMsg").innerHTML =
+            "Errore nel caricamento dati.";
+        }
+      }
+
+      function renderGvG(data) {
+        const attackCol = document.getElementById("attackColumn");
+        const defenseCol = document.getElementById("defenseColumn");
+        const halfStepContainer = document.getElementById("halfStepContainer");
+        const cmdAtt = document.getElementById("cmdAtt");
+        const cmdDef = document.getElementById("cmdDef");
+
+        attackCol.innerHTML = "";
+        defenseCol.innerHTML = "";
+        halfStepContainer.innerHTML = "";
+        const teams = {};
+
+        data.forEach((row) => {
+          if (row.Team === "Comandante ATT")
+            return (cmdAtt.innerText = "Comandante: " + (row.Nome || "-"));
+          if (row.Team === "Comandante DIF")
+            return (cmdDef.innerText = "Comandante: " + (row.Nome || "-"));
+          if (!teams[row.Team]) teams[row.Team] = [];
+          teams[row.Team].push(row);
+        });
+
+        for (let teamName in teams) {
+          const isHalf = teamName.toLowerCase().includes("half");
+          const html = `
+                <div class="${isHalf ? "half-step-box" : "team-box"}">
+                    <div class="team-header">${
+                      isHalf ? "Duellanti" : teamName
+                    }</div>
+                    <ul class="player-list">
+                        ${teams[teamName]
+                          .map(
+                            (p) => `
+                            <li class="player-item">
+                                <div><span class="player-num">${
+                                  p.Posizione || ""
+                                }</span>${p.Nome || "-"}</div>
+                                <div><span class="role-value">${
+                                  p.Ruolo || "-"
+                                }</span></div>
+                            </li>
+                        `
+                          )
+                          .join("")}
+                    </ul>
+                </div>`;
+
+          if (isHalf) halfStepContainer.innerHTML = html;
+          else if (["Team 1", "Team 2", "Team 3", "Team 4"].includes(teamName))
+            attackCol.innerHTML += html;
+          else defenseCol.innerHTML += html;
+        }
+      }
+      window.onload = fetchGvGData;
+    </script>
+  </body>
+</html>
